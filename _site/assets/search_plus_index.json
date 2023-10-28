@@ -1,0 +1,11 @@
+{"/pages/about/": {
+    "title": "About",
+    "keywords": "Jekyll",
+    "url": "/pages/about/",
+    "body": "主题项目地址: https://github.com/sighingnow/jekyll-gitbook"
+  },"/jekyll/2023-10-28-start.html": {
+    "title": "Get Start with Ubuntu 20.04",
+    "keywords": "Jekyll",
+    "url": "/jekyll/2023-10-28-start.html",
+    "body": "Hello"
+  }}
