@@ -98,9 +98,9 @@ REMOTE=${REMOTE:-https://gitee.com/${REPO}.git}
 ~~~shell
 git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone https://gitee.com/phpxxo/zsh-autosuggestions.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+git clone https://gitee.com/mirror-hub/zsh-syntax-highlighting $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 ~~~
 
 在`.zshrc`（通常是home目录）中修改theme和添加插件：
