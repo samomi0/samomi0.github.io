@@ -55,7 +55,7 @@ layout: post
 
 ~~~shell
 sudo apt-add-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt install -y vim curl git ca-certificates curl gnupg lsb-release docker-ce
+sudo apt update && apt install -y vim curl git ca-certificates curl gnupg lsb-release docker-ce
 ~~~
 
 docker因为sudo权限的关系，平时使用可以将用户加入docker用户组，这里可能需要重启生效。
@@ -69,9 +69,9 @@ sudo usermod -aG docker <username>
 接下来安装zsh + oh-my-zsh + p10k + 插件
 
 ~~~shell
-sudo apt-get install zsh
+sudo apt update && apt-get install zsh -y
 wget https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh
-chmod +x install.sh
+sudo chmod +x install.sh
 ~~~
 
 将`install.sh`中REPO和REMOTE
