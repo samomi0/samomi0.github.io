@@ -52,35 +52,38 @@ require(["gitbook", "jquery"], function (gitbook, $) {
     }
 
     gitbook.events.bind("page.change", function () {
-        $("pre").each(function () {
-            $(this).css("position", "relative");
+    $("pre").each(function () {
+        var $container = $("<div class='pre-container'></div>");
+        $(this).css("position", "relative");
 
-            var $copyCodeButton = $("<button class='copy-code-button'>Copy</button>");
-            $copyCodeButton.css({ "position": "fixed", "top": "5px", "right": "5px", "padding": "3px", "background-color": "#313E4E", "color": "white", "border-radius": "5px", "-moz-border-radius": "5px", "-webkit-border-radius": "5px", "border": "2px solid #CCCCCC" });
-            $copyCodeButton.click(function () {
-                var $codeContainer = $(this).siblings("code");
-                if ($codeContainer) {
+        var $copyCodeButton = $("<button class='copy-code-button'>Copy</button>");
+        $copyCodeButton.css({ "position": "absolute", "top": "5px", "right": "5px", "padding": "3px", "background-color": "#313E4E", "color": "white", "border-radius": "5px", "-moz-border-radius": "5px", "-webkit-border-radius": "5px", "border": "2px solid #CCCCCC" });
+        $copyCodeButton.click(function () {
+            var $codeContainer = $(this).siblings("code");
+            if ($codeContainer) {
+                selectElementText($codeContainer.get(0));
+                var selectedText = getSelectedText();
+
+                var buttonNewText = "";
+                if (copyToClipboard(selectedText) == true) {
+                    buttonNewText = "Copied";
                     selectElementText($codeContainer.get(0));
-                    var selectedText = getSelectedText();
-
-                    var buttonNewText = "";
-                    if (copyToClipboard(selectedText) == true) {
-                        buttonNewText = "Copied";
-                        selectElementText($codeContainer.get(0));
-                    } else {
-                        buttonNewText = "Unable to copy";
-                        selectElementText($codeContainer.get(0));
-                    }
-
-                    $(this).text(buttonNewText);
-                    var that = this;
-                    setTimeout(function () {
-                        $(that).text("Copy");
-                    }, 2000);
+                } else {
+                    buttonNewText = "Unable to copy";
+                    selectElementText($codeContainer.get(0));
                 }
-            });
 
-            $(this).append($copyCodeButton);
+                $(this).text(buttonNewText);
+                var that = this;
+                setTimeout(function () {
+                    $(that).text("Copy");
+                }, 2000);
+            }
         });
+
+        $container.append($copyCodeButton);
+        $(this).wrap($container);
     });
+});
+
 });
