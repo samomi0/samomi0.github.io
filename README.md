@@ -1,7 +1,3 @@
----
-layout: home
-title: Misaki's Notebook
-permalink: /
----
+# Misaki's NoteBook
 
 记录自己。

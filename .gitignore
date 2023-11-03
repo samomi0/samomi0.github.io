@@ -1,4 +1,2 @@
-.jekyll-cache
-Gemfile
-Gemfile.lock
-LICENSE
+.hugo_build*
+resources/*
