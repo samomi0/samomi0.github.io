@@ -51,9 +51,15 @@ weight: 1
 
 这里会安装`vim`、`docker`、`curl`、`git`
 
+~~~
+sudo apt update && sudo apt install vim curl git ca-certificates curl gnupg lsb-release docker.io -y
+~~~
+
+如果docker安装有异常，也可以尝试下面的方式
+
 ~~~shell
 sudo apt-add-repository "deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
-sudo apt update && apt install -y vim curl git ca-certificates curl gnupg lsb-release docker-ce
+sudo apt update && sudo apt install -y docker-ce
 ~~~
 
 docker因为sudo权限的关系，平时使用可以将用户加入docker用户组，这里可能需要重启生效。
