@@ -82,5 +82,9 @@ mylogger = Log().logger
 ~~~python
 from mylogger import mylogger
 
-mylogger.info("hello world")
+def test():
+    mylogger.info("hello world")
+
+if __name__ == "__main__":
+    test()
 ~~~

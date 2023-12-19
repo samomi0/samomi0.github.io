@@ -1,8 +1,10 @@
 ---
 title: 搭建Java服务器(Ubuntu20.04)运行环境
-date: 2023-11-14
 weight: 1
 ---
+
+*Date: 2023-11-14 | Author: Mireux*
+___
 
 ## 前言
 

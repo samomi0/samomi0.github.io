@@ -1,8 +1,10 @@
 ---
 title: 从零开始的Ubuntu20.04
-date: 2023-10-28
 weight: 1
 ---
+
+*Date: 2023-10-28 | Author: Misaki*
+___
 
 ## 一切的开始
 
