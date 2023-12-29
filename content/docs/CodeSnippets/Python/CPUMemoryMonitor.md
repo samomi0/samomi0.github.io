@@ -75,7 +75,7 @@ class Monitor:
 
         # 绘制CPU使用率图表
         plt.figure(2)
-        plt.plot(self.timestamps, self._cpu_usage)
+        plt.plot(self._timestamps, self._cpu_usage)
         plt.xlabel('time(s)')
         plt.ylabel('CPU(%)')
         plt.title('CPU Usage')
@@ -111,6 +111,8 @@ if __name__ == "__main__":
     duration = args.duration
     interval = args.interval
     b_save_img = args.save_image if args.save_image else False
+
+    print("b_save_img:", b_save_img)
 
     log_file_name = str(process_id) + ".log"
     logging.basicConfig(level=logging.DEBUG,
