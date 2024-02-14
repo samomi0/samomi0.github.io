@@ -1,83 +1,17 @@
 ---
-title: 简易docker使用手册
-weight: 1
+author: "Misaki"
+date: 2023-11-04
+title: 关于Docker镜像的一些事
+weight: 10
+tags: ["Docker"]
+categories: ["部署"]
 ---
 
-*Date: 2023-11-04 | Author: Misaki*
-___
+镜像、容器的分层与缓存
 
-## 基础操作
+<!--more-->
 
-### 如何换源
-
-*目前国内源（例如阿里云）基本上只支持少量的公共镜像下载，如果是本地机器，建议走代理下载。*
-
-这里以华为云举例，打开docker的配置文件，如果是新安装的docker，这里可能没有这个文件，创建一个就可以。
-
-~~~shell
-sudo vim /etc/docker/daemon.json
-~~~
-
-填入我们想加入的源，例如华为云：`https://mirrors.huaweicloud.com/`，像这样：
-
-~~~json
-{
-    "registry-mirrors": [ 
-         "https://mirrors.huaweicloud.com/"
-    ]
-}
-~~~
-
-然后重启docker服务：
-
-~~~shell
-sudo systemctl daemon-reload
-sudo systemctl restart docker
-~~~
-
-这样就完成了换源操作。
-
-### 开发
-
-* 拉取与推送镜像
-
-  ~~~
-  docker pull image:tag
-  
-  docker login -u <username> <harbor_host>
-  docker push image:tag
-  ~~~
-
-* 部署镜像
-
-​	简单的示例：`docker run -ti --rm --net=host --name=test image:tag`
-
-​	示例常见参数：
-
-| 参数名       | 功能                                                         |
-| ------------ | ------------------------------------------------------------ |
-| `-ti`        | t和i两个参数通常一起使用，交互式启动容器                     |
-| `--rm`       | 停止容器后自动删除，常见于开发时，避免旧容器堆积             |
-| `--net=host` | 与-p重叠，使用宿主机网卡，映射全部端口                       |
-| `-p`         | -p port:port，映射容器内端口到宿主机端口，可以批量指定       |
-| `--name`     | 为容器设置名称，默认会使用一个hash值作为容器名               |
-| `-v`         | 挂载外部目录到容器内，会覆盖容器内已存在的目录。好处是可以外部修改或即时备份，可以利用挂载实现一些动态效果 |
-
-还有很多有用参数可见[Docker官方文档](https://docs.docker.com/engine/reference/commandline/run/)
-
-* 构建镜像
-
-  利用dockerfile实现镜像打包，详细的使用方式可见[官方文档](https://docs.docker.com/engine/reference/builder/)
-
-  build时可以选择上传的缓存目录，像这样`docker build -f dockerfile -t image:new_tag .`，最后的`.`即表示使用当前目录作为缓存上传。
-
-  镜像构建通常用于去掉一些不必要的layer，来尽可能减小镜像体积，并且将变动层置后，有利于镜像仓库更好的管理。[资料](https://docs.docker.com/build/guide/layers/)
-
-  在自动化构建中，还可以利用FROM实现多次容器的打包，即区分开发镜像与运行时镜像。
-
-## 其他内容
-
-### Layer
+## Layer
 
 docker镜像做了分层处理，在docker build时每条指令都会为镜像增加新的一层。对于容器来说，实际上是在镜像的最上层加上了一层读写层，所有在容器内的操作都发生在这一层上（也就是对容器的操作并不会改变镜像本身）。
 
@@ -104,7 +38,7 @@ graph TB
 
 没错，B层原来安装的那些依赖仍然在镜像里，它们只是变得无效了，我们看不到也改变不了。这种情况下镜像就会变得非常大，在依赖多的镜像里，如果这种操作很多，现象也会被放大更多倍。所以如果你需要创建一个基础镜像，最好为它准备上一个自动化流程来构建，否则每当更新基础内容的时候都会变得无比折磨。
 
-### Build with Cache
+## Build with Cache
 
 是的，docker镜像在构建时也会有缓存机制，前文提到镜像会做分层处理，于是当我们在构建一个镜像时，就会有“基础层”和“指令”，并把这一次指令得到的层作为结果缓存在docker里，当下一次遇到同样的基础层和同样的指令的时候，docker会直接把缓存结果拿出来以“加速”这次构建。
 
@@ -112,13 +46,10 @@ graph TB
 
 当然，docker提供了`--no-cache`参数让你的build不使用缓存，不过这个机制还是需要时刻注意。
 
-### Docker in Docker
+## Docker in Docker
 
 我想你一定想过，既然镜像可以是一个隔离的操作系统，我是不是可以在镜像里安装docker，然后在容器里启动容器呢（docker套娃）？
 
 是可以的，但这么做可能会有点问题。因为容器内是一个独立的层级，这意味着，如果你想把一个镜像拉到容器内运行时，会出现巨大的缓存和麻烦的权限问题。
 
 也许可以试试这个：`-v /var/run/docker.sock:/var/run/docker.sock`
-
-
-

@@ -12,7 +12,7 @@ ___
 
 ## docker环境
 
-安装docker详见[从零开始的Ubuntu20.04](https://samomi0.github.io/docs/GetStartWithUbuntu/)。这里主要贴一下docker-compose,包含常用的一些镜像。
+安装docker详见[从零开始的Ubuntu之旅](https://samomi0.github.io/docs/GetStartWithUbuntu/)。这里主要贴一下docker-compose,包含常用的一些镜像。
 ### docker-compose
 
 > 移植到《简易docker使用手册》？

@@ -1,4 +1,7 @@
-# hugo server --minify --themesDir ../.. --baseURL=http://0.0.0.0:1313/theme/hugo-book/
+# how to test on local:
+# 1> docker run -v .:/home/app -ti --rm -p 1313:1313 betterweb/hugo:latest
+# 2> hugo server --config ./config --bind 0.0.0.0 -p 1313
+# 3> open http://localhost:1313/
 
 baseURL: http://127.0.0.1/
 title: NoteBook

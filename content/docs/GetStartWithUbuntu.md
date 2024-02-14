@@ -1,30 +1,64 @@
 ---
-title: 从零开始的Ubuntu20.04
+title: 从零开始的Ubuntu之旅
 weight: 1
 ---
 
 *Date: 2023-10-28 | Author: Misaki*
+
 ___
 
-## 一切的开始
+## 从虚拟机开始
 
-选择虚拟机作为载体安装系统，这里我使用`VirtualBox`，原因嘛，主要是免费。你可以在[Oracle官网](https://www.virtualbox.org/wiki/Downloads)下载到它。当然，[清华源](https://mirrors.tuna.tsinghua.edu.cn/virtualbox/)也是有提供的。
+这里我使用`VirtualBox`，原因嘛，主要是免费+轻便好用。你可以在[Oracle下载页](https://www.virtualbox.org/wiki/Downloads)下载到它。当然，[清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/virtualbox/)也有提供的虚拟机软件的下载。
 
-然后我们要下载一个Ubuntu20.04的ISO映像文件，同样可以在[清华源](https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/)下载到。
+然后需要下载一个Ubuntu的ISO映像文件，这里我们以20.04(focal)版本为例，同样可以在[清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/)下载到。
 
-然后就可以安装虚拟机了。
+然后就可以根据提示来安装虚拟机了。
 
->tips：安装系统时可能会遇到分辨率过低导致页面内容显示不完整的情况，可以用`xrandr`命令来切换分辨率。例如：`xrandr -s 7`，这里7表示第8个分辨率选项。
+>安装系统时可能会遇到分辨率过低导致页面内容显示不完整的情况，可以用`xrandr`命令来切换分辨率。例如：`xrandr -s 7`，这里7表示第8个分辨率选项。
+
+安装好虚拟机后进入操作系统，准备工作就完成了。
+
+>① VirtualBox可能出现全屏时分辨率与屏幕不吻合的情况。
+>
+>1. 关闭虚拟机，在`控制器：IDE`处导入增强功能驱动
+>2. 开启虚拟机，在屏幕底部（或顶部）的小工具栏选择`设备`->`安装增强功能`
+>3. 可能需要重启
+>
+>② VirtualBox可能出现开启双向粘贴板/拖放但实际上失效的情况。
+>
+>1. 关闭虚拟机，在管理器选择`设置`->`存储`->`控制器：SATA`，勾选右侧的`使用主机输入输出(I/O)缓存`
+>2. 选择`控制器：SATA`下方硬盘，勾选右侧的`固态驱动器`
+>3. 在`控制器：IDE`处导入增强功能驱动
+>4. 开启虚拟机，在文件系统打开驱动目录，运行可执行文件重新安装增强功能
+>5. 可能需要重启
+>6. *从虚拟机向宿主机拖放可能失败，暂无较好的解决办法*
+
+## 从Docker开始
+
+如果宿主机是Linux系统，那直接安装docker并拉取ubuntu镜像就可以了。
+
+~~~shell
+sudo docker pull ubuntu:latest
+~~~
+
+如果是其他系统，需要先安装docker desktop，你可以从[Docker官网](https://www.docker.com/products/docker-desktop/)下载到它。
+
+安装好之后就可以搜索并拉取想要的镜像了。当然，也可以从[Docker Hub](https://hub.docker.com/_/ubuntu/tags)找你想要的镜像版本拉取。
+
+*如何使用镜像？可以参考[简易Docker使用手册](https://samomi0.github.io/docs/简易docker使用手册/)。*
 
 ## 一些基础的工具
 
-现在我们有了一个最小的ubuntu20，在安装一切之前，我们需要先解决网络问题（源和代理）。
+现在我们有了一个最小的ubuntu系统，在一切工作之前，因为国内的特殊性，我们最好先解决下网络问题（源和代理）。
 
 ### 源
 
-从[清华源](https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/)获取到ubuntu20的apt源，并更新系统配置。
+从[清华源](https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/)获取到ubuntu的apt源，并更新系统配置。
 
->Notes：这里建议把使用`是否使用 HTTPS`选择否，可以避免一些证书问题。更换ubuntu版本，然后就可以复制粘贴了。这里示例ubuntu20的源。
+***注意页面上的提示**，ARM等版本需要使用[Ubuntu Ports 软件仓库](https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu-ports/)*
+
+>这里建议把选项`是否使用 HTTPS`取消勾选，即选择否，避免证书可能带来的问题。更换对应ubuntu版本选项后，就可以复制粘贴了。这里示例ubuntu20.04的源。
 >
 >~~~
 >deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
@@ -33,21 +67,16 @@ ___
 >deb http://security.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse
 >~~~
 >
->tips1：VirtualBox可能出现全屏时分辨率与屏幕不吻合的情况，可以参考这个方案解决。
->
->1. 关闭虚拟机，在`控制器：IDE`处导入增强功能驱动
->2. 开启虚拟机，在屏幕底部（或顶部）的小工具栏选择`设备`->`安装增强功能`
->3. 可能需要重启
->
->tips2：VirtualBox可能出现开启双向粘贴板/拖放但实际上失效的情况，可以参考这个方案解决。
->
->1. 关闭虚拟机，在管理器选择`设置`->`存储`->`控制器：SATA`，勾选右侧的`使用主机输入输出(I/O)缓存`
->2. 选择`控制器：SATA`下方硬盘，勾选右侧的`固态驱动器`
->3. 在`控制器：IDE`处导入增强功能驱动
->4. 开启虚拟机，在文件系统打开驱动目录，运行可执行文件重新安装增强功能
->5. 可能需要重启
 
 使用`sudo vi /etc/apt/source.list`并把源写入，然后执行`sudo apt update`更新配置。
+
+如果此时没有vi工具，尤其是官方提供的最小镜像，可以用echo命令追加写入文件的形式来操作，像这样：
+
+~~~shell
+echo "xxxxxx" >> /etc/apt/sources.list
+~~~
+
+**覆盖文件前记得备份！**
 
 ### 基础工具
 
