@@ -8,15 +8,7 @@ weight: 2
 
 <!--more-->
 
-## 设置pip默认源
-
-~~~shell
-sudo apt-get install python3-pip
-~~~
-
-[清华源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
-
-## 依赖
+## deps
 
 ~~~shell
 pip3 install psutil matplotlib -i https://pypi.tuna.tsinghua.edu.cn/simple

@@ -101,6 +101,7 @@ sudo groupadd docker
 sudo usermod -aG docker <username>
 ~~~
 
+### 更好的终端体验 —— zsh
 接下来安装zsh + oh-my-zsh + p10k + 插件
 
 ~~~shell
@@ -146,9 +147,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 ~~~
 
-### 设置代理
+### Proxy
 
-* 设置docker代理
+* For Docker
 
   ```shell
   sudo mkdir -p /etc/systemd/system/docker.service.d
@@ -168,27 +169,31 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
   
   接下来重启docker服务就可以了`sudo systemctl restart docker`
 
-* 设置clash代理
+* For Terminal
 
-  从github release页面下载，运行`cfw`可执行文件启动clash
+  *如果你有Clash或者其他的工具，也许不需要这个*
 
+  ~~~shell
+  export http_proxy=xxx.xxx.xxx.xxx
+  export https_proxy=xxx.xxx.xxx.xxx
   ~~~
-  https://github.com/Fndroid/clash_for_windows_pkg/releases
-  ~~~
 
-  建议配合firefox的`SwitchyOmega`插件实现页面的自动代理模式。
+  当然，也可以把它写进`.bashrc`里，让他开机就启动
 
-* 设置git代理
+  建议配合浏览器的`SwitchyOmega`插件实现页面的自动代理模式。
+
+* For Git
 
   ~~~shell
   git config --global http.proxy http://proxy.example.com:8080/
   git config --global https.proxy https://proxy.example.com:8080/
   ~~~
 
-### 安装vscode
+### 更好的code体验
 
-国内下载可以替换域名为：`vscode.cdn.azure.cn`
+比如下载vscode，国内下载可以替换域名为：`vscode.cdn.azure.cn`
 
+或者配置一个更棒的vim环境……
 ____
 
 好了，现在你有了一个最基础的Ubuntu20.04开发环境了，享受代码的乐趣吧。
