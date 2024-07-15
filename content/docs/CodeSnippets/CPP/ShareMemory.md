@@ -8,7 +8,7 @@ weight: 1
 
 <!--more-->
 
-## 创建
+## 使用name创建
 
 ~~~c++
 #include <fcntl.h>
@@ -42,10 +42,34 @@ int main() {
 
     return 0;
 }
-
 ~~~
 
-## 同步
+## 使用key创建
+
+~~~c++
+int s_shmem_key = 888666;
+int s_sem_id = -1;
+int s_shmid = -1;
+int s_shmsize = 123;
+void *s_pshm = NULL;
+int init_shm() {
+    if ((s_shmid = shmget(key_t(s_shmem_key), s_shmsize, 0666 | IPC_CREAT)) < 0) {
+        printf("shmget fail %s", strerror(errno));
+        return -1;
+    }
+    s_pshm = shmat(s_shmid, 0, 0);
+    if (s_pshm == (void*) -1) {
+        printf("shmat fail %s", strerror(errno));
+        return -1;
+    }
+
+    ((char *)s_pshm)[s_shmsize - 1] = '\0';
+
+    return 0;
+}
+~~~
+
+## 使用name同步
 
 ~~~c++
 #include <fcntl.h>
@@ -91,5 +115,28 @@ int main() {
     sem_post(sem);
 
     return 0;
+}
+~~~
+
+## 使用key同步
+
+~~~c++
+int sync_shm(int shmid, int semid) {
+  s_shmid = shmid;
+  s_sem_id = semid;
+
+  if (s_shmid < 0 || s_sem_id < 0) {
+    return -1;
+  }
+
+  s_pshm = shmat(s_shmid, 0, 0);
+  if (s_pshm == (void*) -1) {
+    printf("shmat fail %s", strerror(errno));
+    return -1;
+  }
+
+  ((char *)s_pshm)[s_shmsize - 1] = '\0';
+
+  return 0;
 }
 ~~~

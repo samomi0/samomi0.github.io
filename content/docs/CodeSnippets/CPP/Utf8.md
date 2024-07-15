@@ -4,7 +4,11 @@ date: 2024-07-14
 weight: 1
 ---
 
-## code
+utf8字符序列
+
+<!--more-->
+
+## utf32 to utf8
 
 ~~~c++
 #include <iostream>
@@ -58,5 +62,31 @@ int main() {
     printf("\n");
 
     return 0;
+}
+~~~
+
+## unicode to utf8
+
+~~~c++
+std::vector<std::string> toUtf8Sequence(const std::string &text) {
+  std::vector<std::string> utf8Sequence;
+  int num = text.size();
+  int i = 0;
+  while (i < num) {
+    int size = 1;
+    if (text[i] & 0x80) {
+      char temp = text[i];
+      temp <<= 1;
+      do {
+        temp <<= 1;
+        ++size;
+      } while (temp & 0x80);
+    }
+    std::string subWord = text.substr(i, size);
+    utf8Sequence.push_back(subWord);
+
+    i += size;
+  }
+  return utf8Sequence;
 }
 ~~~
