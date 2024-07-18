@@ -48,11 +48,8 @@ sudo docker pull ubuntu:latest
 
 *如何使用镜像？可以参考[简易Docker使用手册](https://samomi0.github.io/docs/简易docker使用手册/)。*
 
-## 一些基础的工具
-
+## 更换apt的下载源
 现在我们有了一个最小的ubuntu系统，在一切工作之前，因为国内的特殊性，我们最好先解决下网络问题（源和代理）。
-
-### 源
 
 从[清华源](https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/)获取到ubuntu的apt源，并更新系统配置。
 
@@ -78,7 +75,7 @@ echo "xxxxxx" >> /etc/apt/sources.list
 
 **覆盖文件前记得备份！**
 
-### 基础工具
+## 基础工具
 
 这里会安装`vim`、`docker`、`curl`、`git`
 
@@ -101,7 +98,12 @@ sudo groupadd docker
 sudo usermod -aG docker <username>
 ~~~
 
-### 更好的终端体验 —— zsh
+____
+
+好了，现在你有了一个最基础的Ubuntu20.04开发环境了，享受代码的乐趣吧。以下是一些推荐的内容，以便于你有更好的开发体验。
+
+
+## 更好的终端体验 —— zsh
 接下来安装zsh + oh-my-zsh + p10k + 插件
 
 ~~~shell
@@ -147,9 +149,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 ~~~
 
-### Proxy
+## Proxy
 
-* For Docker
+### for Docker
 
   ```shell
   sudo mkdir -p /etc/systemd/system/docker.service.d
@@ -169,7 +171,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
   
   接下来重启docker服务就可以了`sudo systemctl restart docker`
 
-* For Terminal
+### for Terminal
 
   *如果你有Clash或者其他的工具，也许不需要这个*
 
@@ -182,18 +184,16 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
   建议配合浏览器的`SwitchyOmega`插件实现页面的自动代理模式。
 
-* For Git
+### for Git
 
   ~~~shell
   git config --global http.proxy http://proxy.example.com:8080/
   git config --global https.proxy https://proxy.example.com:8080/
   ~~~
 
-### 更好的code体验
+## 更好的code体验
 
 比如下载vscode，国内下载可以替换域名为：`vscode.cdn.azure.cn`
 
 或者配置一个更棒的vim环境……
-____
 
-好了，现在你有了一个最基础的Ubuntu20.04开发环境了，享受代码的乐趣吧。

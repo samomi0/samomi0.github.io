@@ -33,7 +33,7 @@ sudo systemctl status nginx
 
 ### 1. 配置 HTTP 服务器
 
-```nginx
+```
 http {
     include       mime.types;
     default_type  application/octet-stream;
@@ -66,7 +66,7 @@ http {
 
 在 `http` 块中添加一个新的服务器块：
 
-```nginx
+```
 http {
     include       mime.types;
     default_type  application/octet-stream;

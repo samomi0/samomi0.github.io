@@ -1,10 +1,8 @@
 ---
-bookCollapseSection: true
+bookCollapseSection: false
 ---
 
 # Python Code
-
-放一些python相关代码
 
 ## 设置pip默认源
 

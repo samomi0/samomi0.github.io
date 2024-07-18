@@ -9,13 +9,13 @@ ___
 
 ## 安装
 
-~~~
+~~~sh
 sudo apt-get install openssh-server  # Debian/Ubuntu
 sudo yum install openssh-server      # CentOS/RHEL
 ~~~
 
 启动
-~~~
+~~~sh
 sudo systemctl start ssh
 sudo systemctl enable ssh
 
@@ -215,12 +215,12 @@ Subsystem       sftp    /usr/lib/openssh/sftp-server
 ## 正向与反向连接
 
 指定远程连接服务器的端口(1234)
-~~~
+~~~sh
 ssh -p 1234 user@10.1.10.10
 ~~~
 
 将本地的端口(4321)映射到远程服务器的端口(1234)
-~~~
+~~~sh
 ssh -NCR 1234:127.0.0.1:4321 user@10.1.10.10
 ~~~
 
@@ -232,7 +232,7 @@ ssh -NCR 1234:127.0.0.1:4321 user@10.1.10.10
 
 ## 基于ssh用scp来传输文件
 
-~~~
+~~~sh
 scp -P 1234 file.tar.gz user@10.1.10.10:/home/user/
 ~~~
 
