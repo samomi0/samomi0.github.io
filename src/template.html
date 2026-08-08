@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misaki的个人主页</title>
+<meta name="description" content="Misaki 的个人主页 —— C++ 开发者，做过服务端集成 / Linux 服务端 / Windows MFC 客户端。">
+<link rel="icon" href="assets/favicon.svg">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="bg" aria-hidden="true"></div>
+<div class="blobs" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
+
+<!-- 数据加载中的占位动画 -->
+<div class="boot" id="boot"><span class="boot-dot"></span></div>
+
+<!-- 左侧：贯穿全页的 git graph 图层 -->
+<div class="left-graph" id="leftGraph" aria-hidden="true">
+  <span class="g-travel"></span>
+  <span class="g-travel t2"></span>
+</div>
+
+<!-- 右侧：minimap 导航 -->
+<nav class="minimap" id="minimap" aria-label="页面导航"></nav>
+
+<main id="sections">
+  <section id="sec-hero" data-idx="0"><div class="sec" id="heroBox"></div></section>
+  <section id="sec-projects" data-idx="1"><div class="sec" id="projectsBox"></div></section>
+  <section id="sec-archive" data-idx="2"><div class="sec" id="archiveBox"></div></section>
+  <section id="sec-hobbies" data-idx="3"><div class="sec" id="hobbiesBox"></div></section>
+</main>
+
+<script src="assets/main.js"></script>
+</body>
+</html>

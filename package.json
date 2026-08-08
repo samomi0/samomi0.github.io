@@ -1,0 +1,13 @@
+{
+  "name": "samomi0-homepage",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Misaki 的个人主页 —— 由 data/site.yaml 驱动构建",
+  "type": "module",
+  "scripts": {
+    "build": "node src/build.mjs"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
