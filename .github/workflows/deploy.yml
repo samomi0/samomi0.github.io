@@ -1,12 +1,12 @@
 # 构建并部署到 GitHub Pages
 #
 # 使用前提：仓库 Settings → Pages → Source 选择 “GitHub Actions”。
-# 每次 push 到 main（或手动触发）时，会用 data/site.yaml 重新构建并发布。
+# 每次 push 到默认分支 master（或手动触发）时，会用 data/site.yaml 重新构建并发布。
 name: Build & Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
 
 permissions:
