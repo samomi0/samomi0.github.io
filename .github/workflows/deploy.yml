@@ -28,8 +28,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          # package-lock.json 被 gitignore（不提交锁文件），因此不能启用 cache: npm
+          # （它要求 CI 上存在锁文件）。同时避免已弃用的 Node 20。
+          node-version: 24
 
       - name: Install dependencies
         run: npm install
